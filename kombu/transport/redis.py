@@ -119,7 +119,6 @@ error_classes_t = namedtuple('error_classes_t', (
 
 
 def get_redis_error_classes():
-
     """Return tuple of redis error classes."""
     from redis import exceptions
 
@@ -350,6 +349,7 @@ class QoS(virtual.QoS):
     restore_at_shutdown = True
 
     def __init__(self, *args, **kwargs):
+        print("\n\nCREATED QOS\n\n")
         super().__init__(*args, **kwargs)
         self._vrestore_count = 0
 
