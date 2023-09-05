@@ -119,6 +119,7 @@ error_classes_t = namedtuple('error_classes_t', (
 
 
 def get_redis_error_classes():
+
     """Return tuple of redis error classes."""
     from redis import exceptions
 

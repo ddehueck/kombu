@@ -99,6 +99,7 @@ class Consumer(messaging.Consumer):
     def __init__(self, connection, queue=None, exchange=None,
                  routing_key=None, exchange_type=None, durable=None,
                  exclusive=None, auto_delete=None, **kwargs):
+        print(f"\n\nCREATED CONSIUEMR with {connection}\n\n")
         self.backend = connection.channel()
 
         if durable is not None:
