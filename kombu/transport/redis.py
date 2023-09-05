@@ -353,6 +353,7 @@ class QoS(virtual.QoS):
         self._vrestore_count = 0
 
     def append(self, message, delivery_tag):
+        print("\n___ APPENDING ____\n")
         delivery = message.delivery_info
         EX, RK = delivery['exchange'], delivery['routing_key']
         # TODO: Remove this once we soley on Redis-py 3.0.0+
@@ -370,12 +371,14 @@ class QoS(virtual.QoS):
             super().append(message, delivery_tag)
 
     def restore_unacked(self, client=None):
+        print("\n___ RESTORING UNACKED ____\n")
         with self.channel.conn_or_acquire(client) as client:
             for tag in self._delivered:
                 self.restore_by_tag(tag, client=client)
         self._delivered.clear()
 
     def ack(self, delivery_tag):
+        print("\n___ ACK ____\n")
         self._remove_from_indices(delivery_tag).execute()
         super().ack(delivery_tag)
 
@@ -415,11 +418,13 @@ class QoS(virtual.QoS):
                 pass
 
     def restore_by_tag(self, tag, client=None, leftmost=False):
+        print("\n___ RESTORING BY TAG ____\n")
 
         def restore_transaction(pipe):
             p = pipe.hget(self.unacked_key, tag)
             pipe.multi()
             self._remove_from_indices(tag, pipe)
+            print(f"__ P is {p} __")
             if p:
                 M, EX, RK = loads(bytes_to_str(p))  # json is unicode
                 self.channel._do_restore_message(M, EX, RK, pipe, leftmost)
