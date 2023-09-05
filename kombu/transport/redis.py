@@ -120,7 +120,6 @@ error_classes_t = namedtuple('error_classes_t', (
 
 def get_redis_error_classes():
     """Return tuple of redis error classes."""
-    print("\n\nGETTING ERROR CLASSES\n\n")
     from redis import exceptions
 
     # This exception suddenly changed name between redis-py versions
@@ -351,7 +350,6 @@ class QoS(virtual.QoS):
     restore_at_shutdown = True
 
     def __init__(self, *args, **kwargs):
-        print("\n\nCREATED QOS\n\n")
         super().__init__(*args, **kwargs)
         self._vrestore_count = 0
 
@@ -427,7 +425,7 @@ class QoS(virtual.QoS):
             p = pipe.hget(self.unacked_key, tag)
             pipe.multi()
             self._remove_from_indices(tag, pipe)
-            print(f"__ P is {p} __")
+            print(f"__ P is {p} jkljldsfas __")
             if p:
                 M, EX, RK = loads(bytes_to_str(p))  # json is unicode
                 self.channel._do_restore_message(M, EX, RK, pipe, leftmost)
