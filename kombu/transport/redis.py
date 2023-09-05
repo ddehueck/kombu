@@ -424,8 +424,10 @@ class QoS(virtual.QoS):
         def restore_transaction(pipe):
             p = pipe.hget(self.unacked_key, tag)
             pipe.multi()
-            self._remove_from_indices(tag, pipe)
-            print(f"__ P is {p} jkljldsfas __")
+            v = self._remove_from_indices(tag, pipe)
+            print(f"__ V is {v} jkljldsfas __")
+            if not p:
+                print("\n___ P is NONE {p}____\n")
             if p:
                 M, EX, RK = loads(bytes_to_str(p))  # json is unicode
                 self.channel._do_restore_message(M, EX, RK, pipe, leftmost)
