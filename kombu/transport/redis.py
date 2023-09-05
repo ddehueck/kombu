@@ -120,6 +120,7 @@ error_classes_t = namedtuple('error_classes_t', (
 
 def get_redis_error_classes():
     """Return tuple of redis error classes."""
+    print("\n\nGETTING ERROR CLASSES\n\n")
     from redis import exceptions
 
     # This exception suddenly changed name between redis-py versions
@@ -145,6 +146,7 @@ def get_redis_error_classes():
 
 def get_redis_ConnectionError():
     """Return the redis ConnectionError exception class."""
+    print("\n\nGETTING CONNECTION ERROR\n\n")
     from redis import exceptions
     return exceptions.ConnectionError
 
